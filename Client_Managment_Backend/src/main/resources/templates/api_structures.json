@@ -1,0 +1,42 @@
+{
+  "POST_EXAMPLE": {
+    "NAME": "Shain",
+    "LAST_NAME": "Dragon",
+    "EMAIL": "shain@example.com"
+  },
+  "PUT_EXAMPLE": {
+    "ID": 1,
+    "NAME": "Daniel",
+    "LAST_NAME": "Pérez",
+    "EMAIL": "juan.perez@example.com",
+    "DATE": "2024-11-15T14:30:00"
+  },
+  "DELETE_EXAMPLE": {
+    "ID": 1
+  },
+  "SINGLE_CLIENT_RESPONSE": {
+    "ID": 1,
+    "NAME": "Daniel",
+    "LAST_NAME": "Pérez",
+    "EMAIL": "juan.perez@example.com",
+    "DATE": "2024-11-15T14:30:00"
+  },
+  "CLIENT_LIST_RESPONSE": {
+    "CLIENTS": [
+      {
+        "ID": 1,
+        "NAME": "Daniel",
+        "LAST_NAME": "Pérez",
+        "EMAIL": "juan.perez@example.com",
+        "DATE": "2024-11-15T14:30:00"
+      },
+      {
+        "ID": 2,
+        "NAME": "Shain",
+        "LAST_NAME": "Dragon",
+        "EMAIL": "shain@example.com",
+        "DATE": "2024-11-15T15:45:00"
+      }
+    ]
+  }
+}
