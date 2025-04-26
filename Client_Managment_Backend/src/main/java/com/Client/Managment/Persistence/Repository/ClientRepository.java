@@ -7,7 +7,11 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-
+/*
+ * @Author: Orlando Yepes Espitia
+ * @Date: 2025/26/04
+ * @Description: This interface is used to create the repository for the client table in the database.
+ */
 @Repository
 public interface ClientRepository extends JpaRepository<ClientEntity, Long> {
 

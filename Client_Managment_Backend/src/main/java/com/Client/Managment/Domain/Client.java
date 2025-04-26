@@ -7,7 +7,11 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
-
+/*
+ * @Author: Orlando Yepes Espitia
+ * @Date: 2025/26/04
+ * @Description: This class represents a client entity with fields for ID, name, last name, email, and date.
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

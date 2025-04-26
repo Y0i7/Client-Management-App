@@ -1,0 +1,98 @@
+pipeline {
+  agent {
+    docker {
+      image 'maven:3.8.6-jdk-11'
+      args '-v $HOME/.m2:/root/.m2'    // cache de dependencias Maven
+    }
+  }
+
+  environment {
+    // Credenciales definidas en Jenkins (Manage Jenkins → Credentials)
+    DOCKER_REGISTRY = 'docker.io'
+    DOCKER_CREDENTIALS = 'dockerhub-creds'  // ID de credencial Docker
+    APP_NAME         = 'client-management-backend'
+  }
+
+  options {
+    // Limita logs y tiempo de ejecución
+    timeout(time: 1, unit: 'HOURS')
+    ansiColor('xterm')
+  }
+
+  stages {
+
+    stage('Checkout') {
+      steps {
+        checkout scm
+      }
+    }
+
+    stage('Build & Unit Test') {
+      steps {
+        sh 'mvn clean verify -Dskip.ftl=true'
+      }
+      post {
+        always {
+          junit '**/target/surefire-reports/*.xml'
+          archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
+        }
+      }
+    }
+
+    stage('Build Docker Image') {
+      steps {
+        script {
+          docker.withRegistry("https://${env.DOCKER_REGISTRY}", env.DOCKER_CREDENTIALS) {
+            def img = docker.build("${env.APP_NAME}:${env.BUILD_NUMBER}")
+            // opcional: docker tag para latest o dev
+            img.push('latest')
+            img.push("${env.BUILD_NUMBER}")
+          }
+        }
+      }
+    }
+
+    stage('Deploy to Dev') {
+      steps {
+        echo "Desplegando versión ${env.BUILD_NUMBER} en DEV..."
+        // aquí el script o comando para tu entorno Dev
+        // p.ej. kubectl set image deployment/${APP_NAME}-dev ${APP_NAME}=docker.io/miusuario/${APP_NAME}:${env.BUILD_NUMBER}
+      }
+    }
+
+    stage('Deploy to QA') {
+      when {
+        branch 'main'             // solo en branch main
+      }
+      steps {
+        input message: "¿Confirmas Deploy a QA?", ok: "¡Sí, QA!"
+        echo "Desplegando versión ${env.BUILD_NUMBER} en QA..."
+        // tu comando de despliegue QA
+      }
+    }
+
+    stage('Deploy to Prod') {
+      when {
+        branch 'main'
+        expression {
+          // solo si tag empieza por release-
+          return env.GIT_TAG_NAME?.startsWith('release-')
+        }
+      }
+      steps {
+        input message: "¿Confirmas Deploy a PRODUCTION?", ok: "¡Sí, Prod!"
+        echo "Desplegando versión ${env.BUILD_NUMBER} en PRODUCTION..."
+        // tu comando de despliegue Prod
+      }
+    }
+  }
+
+  post {
+    success {
+      echo 'Pipeline completado con éxito 🎉'
+    }
+    failure {
+      echo 'Algo falló en el pipeline ❌'
+    }
+  }
+}

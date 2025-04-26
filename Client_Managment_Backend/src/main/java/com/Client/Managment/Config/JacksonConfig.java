@@ -10,7 +10,11 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 
 import java.time.format.DateTimeFormatter;
-
+/*
+ * @Author: Orlando Yepes Espitia
+ * @Date: 2025/26/04
+ * @Description: This class is used to configure the Jackson ObjectMapper for the application.
+ */
 @Configuration
 public class JacksonConfig {
 
