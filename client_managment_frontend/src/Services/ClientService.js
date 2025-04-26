@@ -1,11 +1,12 @@
 import axios from "axios";
 
-const CLIENT_GET_REST_API_URL = "http://localhost:8080/api/clients";
-const CLIENT_GETBYID_API_URL = "http://localhost:8080/api/client/";
-const CLIENT_GETBYNAME_API_URL = "http://localhost:8080/api/name/";
-const CLIENT_POST_REST_API_URL = "http://localhost:8080/api/add";
-const CLIENT_PUT_REST_API_URL = "http://localhost:8080/api/update/";
-const CLIENT_DELETE_REST_API_URL = "http://localhost:8080/api/delete/";
+const API_URL = process.env.REACT_APP_API_URL;
+const CLIENT_GET_REST_API_URL = `${API_URL}/clients`;
+const CLIENT_GETBYID_API_URL = `${API_URL}/client/`;
+const CLIENT_GETBYNAME_API_URL = `${API_URL}/name/`;
+const CLIENT_POST_REST_API_URL = `${API_URL}/add`;
+const CLIENT_PUT_REST_API_URL = `${API_URL}/update/`;
+const CLIENT_DELETE_REST_API_URL = `${API_URL}/delete/`;
 
 class ClientService {
     getAllClients() {
