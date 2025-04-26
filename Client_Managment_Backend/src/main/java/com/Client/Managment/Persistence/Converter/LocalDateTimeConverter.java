@@ -5,7 +5,11 @@ import jakarta.persistence.Converter;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
-
+/*
+ * @Author: Orlando Yepes Espitia
+ * @Date: 2025/26/04
+ * @Description: This class is used to convert LocalDateTime to Timestamp and vice versa.
+ */
 @Converter(autoApply = true)
 public class LocalDateTimeConverter implements AttributeConverter<LocalDateTime, Timestamp> {
 

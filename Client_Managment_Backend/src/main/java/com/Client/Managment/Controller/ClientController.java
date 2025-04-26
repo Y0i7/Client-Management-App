@@ -17,7 +17,11 @@ import jakarta.validation.Valid;
 import java.net.URI;
 import java.time.LocalDateTime;
 import java.util.List;
-
+/*
+ * @Author: Orlando Yepes Espitia
+ * @Date: 2025/26/04
+ * @Description: ClientController is a REST controller that handles HTTP requests related to clients.
+ */
 @Slf4j
 @RestController
 @RequestMapping("/api")

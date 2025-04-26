@@ -13,8 +13,11 @@ import jakarta.validation.constraints.Size;
 
 
 import java.time.LocalDateTime;
-
-
+/*
+ * @Author: Orlando Yepes Espitia
+ * @Date: 2025/26/04
+ * @Description: This class is used to create the entity for the client table in the database.
+ */
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
@@ -44,8 +47,7 @@ public class ClientEntity {
     @Column(name = "Client_Date")
     private LocalDateTime clientDate;
 
-
-
+    // Constructor for creating a new ClientEntity with the current date
     @PrePersist
     public void setDefaultDate(){
         if (this.clientDate == null){

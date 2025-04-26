@@ -5,20 +5,26 @@ import com.Client.Managment.Persistence.Converter.ClientConverter;
 import com.Client.Managment.Persistence.Entity.ClientEntity;
 import com.Client.Managment.Persistence.Repository.ClientRepository;
 import jakarta.transaction.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-
+/*
+ * @Author: Orlando Yepes Espitia
+ * @Date: 2025/26/04
+ * @Description: This class implements the ClientService interface and provides methods to interact with the database.
+ */
 @Service("DBClient")
-@ConditionalOnProperty(
-        value = "clients.strategy",
-        havingValue = "EN_DB")
+@ConditionalOnProperty(value = "clients.strategy", havingValue = "EN_DB")
 public class ClientServiceDBImpl implements ClientService{
 
+    // This is the repository that will be used to access the database
+    @Autowired
     private final ClientRepository clientRepository;
 
+    // Constructor injection of the ClientRepository
     public ClientServiceDBImpl(ClientRepository clientRepository){
         this.clientRepository = clientRepository;
     }

@@ -10,7 +10,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-
+/*
+ * @Author: Orlando Yepes Espitia
+ * @Date: 2025/26/04
+ * @Description: This class handles global exceptions for the application.
+ */
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
