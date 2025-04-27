@@ -1,0 +1,38 @@
+# Dockerignore para backend Spring Boot
+
+# Ignorar carpetas de construcción locales de Gradle
+.gradle/
+build/
+
+# Evitar incluir código fuente que no se necesita
+src/
+!src
+
+# Ignorar archivos de configuración de IDEs
+*.iml
+*.ipr
+*.iws
+.idea/
+.vscode/
+
+# Archivos de logs
+*.log
+logs/
+
+# Configuración del sistema operativo
+.DS_Store
+Thumbs.db
+
+# Archivos de dependencias locales
+**/dependency-reduced-pom.xml
+
+# Credenciales y entornos locales
+.env
+
+# Dockerfile anterior y configuraciones de CI/CD si existen
+Dockerfile.*
+
+# Otros archivos no necesarios
+README.md
+LICENSE
+

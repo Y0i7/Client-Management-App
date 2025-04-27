@@ -1,70 +1,114 @@
-# Getting Started with Create React App
+# Client Management Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Este repositorio contiene el frontend de la aplicación **Client Management**, una SPA (Single Page Application) construida con React y servida por Nginx en producción.
 
-## Available Scripts
+## 🚀 Tecnologías
 
-In the project directory, you can run:
+- **React** 18
+- **React Router DOM** 7
+- **Axios** para peticiones HTTP
+- **Create React App** (react-scripts)
+- **Nginx** (en contenedor Docker) para servir la build
 
-### `npm start`
+## 📁 Estructura de carpetas
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+```
+client_managment_frontend/
+├─ Dockerfile            # Docker multi-stage (Node → Nginx)
+├─ nginx.conf            # (opcional) configuración de Nginx para proxy /api
+├─ .env                  # variables de entorno para React
+├─ package.json
+├─ package-lock.json
+└─ src/
+   ├─ components/        # Componentes React reutilizables
+   |      ├─ ClientFormComponent.js       
+   |      ├─ FooterComponent.js   
+   |      ├─ HeaderComponent.js        
+   |      └─ ListClientComponent.js   
+   ├─ services/          # Cliente Axios
+   |      └─ ClientService.js   
+   ├─ App.js
+   ├─ index.js
+   └─ ...
+```
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## ⚙️ Variables de Entorno
 
-### `npm test`
+Crea un archivo `.env` en la raíz del proyecto con esta variable:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```env
+REACT_APP_API_URL=http://localhost:8080/api
+```
 
-### `npm run build`
+- **REACT_APP_API_URL**: URL base de la API (backend). En Docker Compose: `http://backend:8080/api`.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+> **Importante**: Las variables deben comenzar con `REACT_APP_` para que CRA las inyecte en tiempo de build.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## 💻 Desarrollo local
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+1. Instala dependencias:
 
-### `npm run eject`
+   ```bash
+   npm ci
+   ```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+2. Levanta la app en modo desarrollo:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+   ```bash
+   npm start
+   ```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+   - Se abrirá en <http://localhost:3000>
+   - Hot-reload al cambiar código
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+3. Ejecuta tests:
 
-## Learn More
+   ```bash
+   npm test
+   ```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## 🛠️ Scripts disponibles
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+| Comando         | Descripción                              |
+|-----------------|------------------------------------------|
+| `npm start`     | Arranca servidor dev en `localhost:3000` |
+| `npm run build` | Genera build optimizada en `/build`      |
+| `npm test`      | Ejecuta tests unitarios                  |
+| `npm run eject` | Expulsa configuración CRA                 |
 
-### Code Splitting
+## 📦 Build y despliegue con Docker
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+La imagen multi-stage construye el bundle con Node y luego lo sirve con Nginx.
 
-### Analyzing the Bundle Size
+1. Desde la raíz del proyecto (junto a `docker-compose.yml`), ejecuta:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+   ```bash
+   docker compose up --build frontend
+   ```
 
-### Making a Progressive Web App
+2. Abre <http://localhost:3000> para ver la aplicación.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+> En producción el contenedor Nginx servirá los archivos estáticos y, opcionalmente, hará proxy de `/api` a tu backend.
 
-### Advanced Configuration
+## 📡 Conexión con el Backend
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+- El servicio React consume la API usando `ClientService.js`, que toma `process.env.REACT_APP_API_URL`.
+- Asegúrate de que el backend esté corriendo en la URL indicada.
 
-### Deployment
+```javascript
+// services/ClientService.js
+const API_URL = process.env.REACT_APP_API_URL;
+axios.get(`${API_URL}/clients`)
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+## 📖 Uso
 
-### `npm run build` fails to minify
+1. Navega a "Add Client" para crear un nuevo cliente.
+2. Rellena nombre, apellido y email, y haz clic en "Save".
+3. La tabla de clientes listará todos los registros.
+4. Usa los botones "Edit" y "Delete" para modificar o eliminar.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## 📄 Licencia
+
+Este proyecto está bajo la licencia MIT. Consulta el archivo `LICENSE` para más detalles.
+

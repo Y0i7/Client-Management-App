@@ -8,6 +8,13 @@ const CLIENT_POST_REST_API_URL = `${API_URL}/add`;
 const CLIENT_PUT_REST_API_URL = `${API_URL}/update/`;
 const CLIENT_DELETE_REST_API_URL = `${API_URL}/delete/`;
 
+/*
+ * @Author: Orlando Yepes Espitia
+ * @Date: 2025/26/04
+ * @Description: ClientService class to handle all client related API calls.
+ * @Version: 2.0.0
+ */
+
 class ClientService {
     getAllClients() {
         return axios.get(CLIENT_GET_REST_API_URL);

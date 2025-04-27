@@ -1,67 +1,93 @@
 # Client-Management-App
 
-A React-based application for managing client data. It allows users to view, search, add, update, and delete client information efficiently. The project utilizes modern React features, including hooks, and integrates with a backend API for data handling.
 
-## Features
-- *Client Management*: View a list of all clients, including their ID, name, last name, email, and the date they were last updated.
-- *Search Functionality*: Search clients by their name for quick access.
-- *CRUD Operations*: Add new clients, update existing records, and delete clients.
-- *User-Friendly Design*: Includes a clean and responsive user interface for better usability.
-- *Error Handling*: Alerts and error messages provide feedback to users in case of failed operations.
+## 📋 Visión general
+Esta aplicación Client Management es una SPA que permite listar, crear, editar, eliminar y buscar clientes mediante una interfaz React y una API REST en Spring Boot, todo orquestado con Docker Compose. Ofrece:
 
-## Technologies Used
-- *Frontend*: React (JavaScript, Hooks)
-- *Routing*: React Router
-- *HTTP Requests*: Axios
-- *Styling*: Bootstrap and custom CSS
+### Tabla de clientes con operaciones CRUD y búsqueda
 
-## Installation
-1. Clone the repository:
-   ```bash
-   git clone "https://github.com/Y0i7/Client-Management-App.git"
-   ```
-2. Navigate to the project directory:
-   ```bash
-   cd "Client-Management-App"
-   ```
-3. Install dependencies:
-   ```bash
-   npm install
-   ```
-4. Start the development server:
-   ```bash
-   npm start
-   ```
-5. Open your browser and navigate to `http://localhost:3000`.
+![Captura de pantalla de la aplicación](/assets/images/List_Page.png)
+*Ejemplo de la interfaz de la aplicación*
 
-## API Requirements
-Ensure the backend API is running and follows the expected JSON structure:
-```json
-{
-  "CLIENTS": [
-    {
-      "ID": 1,
-      "NAME": "John",
-      "LAST_NAME": "Doe",
-      "EMAIL": "john.doe@example.com",
-      "DATE": "2025-01-01"
-    }
-  ]
-}
+### Formularios para agregar y actualizar clientes con validación
+
+![Captura de pantalla de la aplicación](/assets/images/List_Page.png)
+*Ejemplo de la interfaz de la aplicación*
+
+### Base de datos PostgreSQL gestionada por Spring Data JPA
+
+![Captura de pantalla de la aplicación](/assets/images/List_Page.png)
+*Ejemplo de la interfaz de la aplicación*
+
+---
+
+## 🏗️ Arquitectura del Sistema
+
+```mermaid
+graph TD
+    A[Usuario/Navegador] -->|HTTP Requests| B(Frontend: React 18)
+    B -->|API REST| C[Backend: Spring Boot 3]
+    C -->|JDBC| D[(PostgreSQL 15)]
+    
+    subgraph Docker Compose
+        B -.->|Nginx:3000| E[Red: app-network]
+        C -.->|Puerto 8080| E
+        D -.->|Puerto 5432| E
+    end
 ```
 
-## Usage
-1. *View Clients*: The homepage displays a table of clients fetched from the API.
-2. *Search Clients*: Use the search bar to filter clients by their name.
-3. *Add Client*: Click on the "Add Client" button to open the form and add a new client.
-4. *Edit Client*: Use the "Update" button next to a client to modify their information.
-5. *Delete Client*: Click on the "Delete" button to remove a client from the database.
+--- 
 
-## Future Enhancements
-- Add pagination to the client table.
-- Include more robust validation for input fields.
-- Implement authentication for enhanced security.
+## 🛠 Tecnologías
 
-## License
-This project is licensed under the MIT License. See the [LICENSE](./LICENSE) file for details.
+### Frontend
+- React 18
+- React Router DOM
+- Axios
+- Create React App
 
+### Backend
+- Spring Boot 3
+- Spring Data JPA
+- Hibernate
+- PostgreSQL
+
+### Contenerización
+- Docker (multi-stage: Node→Nginx / Gradle→JRE)
+- Docker Compose
+
+### Tests
+- JUnit 5
+- Mockito
+- Embedded PostgreSQL para pruebas
+
+--- 
+## 📁 Estructura del proyecto
+
+```bash
+Client-Management-App/
+├─ Client_Managment_Backend/      # Spring Boot backend  
+│  ├─ src/main/java/com/...  
+│  ├─ application.properties  
+│  ├─ Dockerfile                  
+│  └─ .dockerignore  
+├─ client_managment_frontend/     # React + Nginx frontend  
+│  ├─ public/  
+│  ├─ src/                        # components/, pages/, services/  
+│  ├─ .env                        
+│  ├─ Dockerfile                  
+│  └─ nginx.conf                  
+└─ docker-compose.yml             
+```
+
+---
+
+## 🚪 Endpoints de la API
+
+| **Método** | **Ruta** | **Descripción** |
+| `GET` | /api/clients | Listar todos los clientes |
+| `GET` | /api/client/{id} | Obtener cliente por ID |
+| `GET` | /api/client/{name} | Obtener cliente por nombre |
+| `POST` | /api/add | Crear nuevo cliente |
+| `PUT` | /api/update/{id} | Actualizar cliente |
+| `DELETE` | /api/delete/{id} | Eliminar cliente |
