@@ -85,6 +85,7 @@ Client-Management-App/
 ## 🚪 Endpoints de la API
 
 | **Método** | **Ruta** | **Descripción** |
+|-----|-----------------|-----------------|
 | `GET` | /api/clients | Listar todos los clientes |
 | `GET` | /api/client/{id} | Obtener cliente por ID |
 | `GET` | /api/client/{name} | Obtener cliente por nombre |
