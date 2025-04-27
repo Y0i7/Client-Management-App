@@ -5,6 +5,13 @@ import FooterComponent from './components/FooterComponent';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import ClientFormComponent from './components/ClientFormComponent';
 
+/*
+ * @Author: Orlando Yepes Espitia
+ * @Date: 2025/26/04
+ * @Description: Client Management Application
+ * @Version: 2.0.0
+ */
+
 function App() {
   return (
     <div>

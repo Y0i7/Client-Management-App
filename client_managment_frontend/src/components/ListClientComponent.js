@@ -2,6 +2,13 @@ import React, { useEffect, useState } from 'react';
 import ClientService from '../Services/ClientService';
 import { Link } from 'react-router-dom';
 
+/*
+ * @Author: Orlando Yepes Espitia
+ * @Date: 2025/26/04
+ * @Description: This component is responsible for listing all clients and providing options to search, update, and delete them.
+ * @Version: 2.0.0
+ */
+
 function ListClientComponent() {
 
     const [clients, setClients] = useState([]);

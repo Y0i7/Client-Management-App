@@ -2,6 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate, Link, useParams } from 'react-router-dom';
 import ClientService from '../Services/ClientService';
 
+/*
+ * @Author: Orlando Yepes Espitia
+ * @Date: 2025/26/04
+ * @Description: ClientFormComponent is a React component that allows users to add or update client information. It includes form fields for name, last name, and email, and handles form submission to save or update client data.
+ * @Version: 2.0.0
+ */
+
 const ClientFormComponent = () => {
 
     const [errorMessage, setErrorMessage] = useState('');
